@@ -1,0 +1,7 @@
+BOOTMAGIC_ENABLE = no 
+
+EXTRAKEY_ENABLE = yes 
+
+COMMAND_ENABLE = yes 
+
+NKRO_ENABLE = yes 
