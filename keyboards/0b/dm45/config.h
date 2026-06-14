@@ -2,8 +2,8 @@
 
 #ifdef RGBLIGHT_ENABLE
 // RGB 灯带配置
-#define RGB_DI_PIN GP2              // 数据引脚（GP2 为示例；左右手 MCU 均使用相同定义，但硬件上连接各自的 GP2）
-#define RGBLED_NUM 20               // 总 LED 数（左手 10 + 右手 10）
+#define WS2812_DI_PIN GP2              // 数据引脚（GP2 为示例；左右手 MCU 均使用相同定义，但硬件上连接各自的 GP2）
+#define RGBLIGHT_LED_COUNT 20               // 总 LED 数（左手 10 + 右手 10）
 #define RGBLED_SPLIT { 10, 10 }     // 分体 LED 分配：左手 10 颗，右手 10 颗
 #define RGBLIGHT_LIMIT_VAL 120      // 最大亮度（0-255；降低以节省功耗，避免过热）
 #define RGBLIGHT_HUE_STEP 8         // 色调调整步长
@@ -22,3 +22,18 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #endif
+
+#define ANALOG_JOYSTICK_X_AXIS_PIN GP26
+#define ANALOG_JOYSTICK_Y_AXIS_PIN GP27
+#define ANALOG_JOYSTICK_AUTO_AXIS
+#define ANALOG_JOYSTICK_CUTOFF
+#define SPLIT_POINTING_ENABLE
+#define POINTING_DEVICE_COMBINED
+#define POINTING_DEVICE_INVERT_X_RIGHT
+#define POINTING_DEVICE_INVERT_Y_RIGHT
+#define POINTING_DEVICE_INVERT_X
+
+#define POINTING_DEVICE_TASK_THROTTLE_MS 10
+
+#define ANALOG_JOYSTICK_SPEED_MAX 3
+#define ANALOG_JOYSTICK_SPEED_REGULATOR 24

@@ -39,3 +39,61 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           _______,_______,            _______,_______
     )
 };
+
+void keyboard_post_init_user(void) {
+    debug_enable=true;
+    debug_matrix=true;
+    debug_keyboard=true;
+    debug_mouse=true;
+};
+static int prev_direction = 0;  // 0=center, 1=up, 2=down, 3=left, 4=right
+
+static int prev_prev_direction = 0;
+
+static int prev_prev_prev_direction = 0;
+
+int get_direction(int x, int y) {
+    if (abs(x) < 2 && abs(y) < 2) return 0;
+
+    if (abs(y) > abs(x)) {
+        return (y > 0) ? 2 : 1;
+    } else {
+        return (x > 0) ? 3 : 4;
+    }
+}
+
+report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
+    // Left side for scrolling
+    left_report.h = left_report.x * 0.1;
+    left_report.v = left_report.y * 0.1;
+    left_report.x = 0;
+    left_report.y = 0;
+
+    // Right side for directional keys
+    int current_direction = get_direction(-right_report.x, right_report.y);
+
+    if (prev_direction != 0 && prev_prev_prev_direction == prev_direction) {
+        current_direction = prev_direction;
+    } else if (current_direction != 0 && prev_prev_direction == current_direction) {
+        prev_direction = current_direction;
+    };
+
+    if (current_direction != prev_direction) {
+
+        switch (current_direction) {
+            case 1: tap_code(KC_UP); break;
+            case 2: tap_code(KC_DOWN); break;
+            case 3: tap_code(KC_LEFT); break;
+            case 4: tap_code(KC_RIGHT); break;
+            case 0: break;
+        }
+    };
+
+    prev_prev_prev_direction = prev_prev_direction;
+    prev_prev_direction = prev_direction;
+    prev_direction = get_direction(-right_report.x, right_report.y);
+
+    right_report.x = 0;
+    right_report.y = 0;
+    return pointing_device_combine_reports(left_report, right_report);
+}

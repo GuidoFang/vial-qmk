@@ -1,0 +1,12 @@
+BOOTMAGIC_ENABLE = no 
+
+SERIAL_DRIVER = vendor 
+
+EXTRAKEY_ENABLE = yes 
+
+COMMAND_ENABLE = yes 
+
+NKRO_ENABLE = yes 
+
+
+# SPLIT_KEYBOARD = yes
